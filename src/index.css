@@ -1,96 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Narmadha Fashion Home - Luxury Design System */
 
 @layer base {
   :root {
+    /* Primary Backgrounds */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    --background-ivory: 45 20% 97%;
+    --background-champagne: 32 27% 95%;
+    
+    /* Text Colors */
+    --foreground: 0 0% 7%;
+    --foreground-muted: 0 0% 33%;
+    
+    /* Brand Colors */
+    --gold: 43 52% 55%;
+    --gold-light: 43 52% 70%;
+    --gold-dark: 43 52% 40%;
+    --beige: 35 40% 83%;
+    --beige-light: 35 40% 92%;
+    
+    /* Card & Surfaces */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 0 0% 7%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
+    --popover-foreground: 0 0% 7%;
+    
+    /* Primary - Gold accent */
+    --primary: 43 52% 55%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary - Beige */
+    --secondary: 35 40% 83%;
+    --secondary-foreground: 0 0% 7%;
+    
+    /* Muted surfaces */
+    --muted: 45 20% 97%;
+    --muted-foreground: 0 0% 33%;
+    
+    /* Accent */
+    --accent: 43 52% 55%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders & Inputs */
+    --border: 35 20% 88%;
+    --input: 35 20% 88%;
+    --ring: 43 52% 55%;
+    
     --radius: 0.5rem;
-
+    
+    /* Footer - Elephant Black */
+    --footer: 0 0% 6%;
+    --footer-foreground: 0 0% 95%;
+    
+    /* Sidebar */
     --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-foreground: 0 0% 33%;
+    --sidebar-primary: 43 52% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 35 40% 92%;
+    --sidebar-accent-foreground: 0 0% 7%;
+    --sidebar-border: 35 20% 88%;
+    --sidebar-ring: 43 52% 55%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 0 0% 6%;
+    --background-ivory: 0 0% 8%;
+    --background-champagne: 0 0% 10%;
+    --foreground: 0 0% 95%;
+    --foreground-muted: 0 0% 65%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 43 52% 55%;
+    --primary-foreground: 0 0% 6%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 43 52% 55%;
+    --accent-foreground: 0 0% 6%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 43 52% 55%;
+    --footer: 0 0% 4%;
+    --footer-foreground: 0 0% 95%;
   }
 }
 
@@ -99,7 +104,258 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  html {
+    scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-background text-foreground font-inter antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  /* Luxury Button Variants */
+  .btn-luxury {
+    @apply inline-flex items-center justify-center px-8 py-3 font-inter text-sm uppercase tracking-[0.2em] transition-all duration-500 ease-out;
+  }
+
+  .btn-luxury-primary {
+    @apply btn-luxury bg-primary text-primary-foreground hover:bg-gold-dark;
+  }
+
+  .btn-luxury-outline {
+    @apply btn-luxury border border-foreground text-foreground hover:bg-foreground hover:text-background;
+  }
+
+  .btn-luxury-ghost {
+    @apply btn-luxury text-foreground hover:text-primary;
+  }
+
+  /* Editorial Text Styles */
+  .text-editorial-hero {
+    @apply font-playfair text-5xl md:text-7xl lg:text-8xl font-medium leading-[0.9] tracking-tight;
+  }
+
+  .text-editorial-title {
+    @apply font-playfair text-3xl md:text-5xl font-medium leading-tight tracking-tight;
+  }
+
+  .text-editorial-subtitle {
+    @apply font-playfair text-xl md:text-2xl font-normal italic text-foreground-muted;
+  }
+
+  .text-editorial-body {
+    @apply font-inter text-base md:text-lg font-light leading-relaxed text-foreground-muted;
+  }
+
+  /* Gold Accent Line */
+  .gold-line {
+    @apply h-px w-16 bg-primary;
+  }
+
+  .gold-line-vertical {
+    @apply w-px h-16 bg-primary;
+  }
+
+  /* Luxury Card */
+  .card-luxury {
+    @apply relative overflow-hidden bg-card rounded-lg transition-all duration-700 ease-out;
+  }
+
+  .card-luxury:hover {
+    @apply shadow-luxury;
+  }
+
+  /* Section spacing */
+  .section-luxury {
+    @apply py-20 md:py-32 lg:py-40;
+  }
+
+  /* Container */
+  .container-luxury {
+    @apply max-w-7xl mx-auto px-6 md:px-8 lg:px-12;
+  }
+
+  /* Navbar transparent */
+  .navbar-transparent {
+    @apply fixed top-0 left-0 right-0 z-50 transition-all duration-500;
+  }
+
+  .navbar-scrolled {
+    @apply bg-background/95 backdrop-blur-md shadow-sm;
+  }
+
+  /* WhatsApp Button */
+  .whatsapp-btn {
+    @apply fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg transition-transform duration-300 hover:scale-110;
+  }
+
+  /* Carousel styling */
+  .carousel-luxury {
+    @apply overflow-hidden;
+  }
+
+  .carousel-track {
+    @apply flex gap-6;
+  }
+
+  /* Footer */
+  .footer-luxury {
+    @apply bg-footer text-footer-foreground py-16 md:py-24;
+  }
+
+  /* Form inputs */
+  .input-luxury {
+    @apply w-full bg-transparent border-b border-border py-4 font-inter text-foreground placeholder:text-foreground-muted focus:border-primary focus:outline-none transition-colors duration-300;
+  }
+
+  /* Animated underline for nav links */
+  .nav-link {
+    @apply relative font-inter text-sm uppercase tracking-[0.15em] transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-primary transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+
+  /* Image overlay effect */
+  .img-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent opacity-0 transition-opacity duration-500;
+  }
+
+  .group:hover .img-overlay {
+    @apply opacity-100;
+  }
+}
+
+@layer utilities {
+  /* Smooth entrance animations */
+  .animate-fade-up {
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* Stagger delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+
+  /* Infinite scroll animation */
+  .animate-scroll-x {
+    animation: scrollX 30s linear infinite;
+  }
+
+  .animate-scroll-x:hover {
+    animation-play-state: paused;
+  }
+
+  /* Pulse animation for WhatsApp */
+  .animate-pulse-ring {
+    animation: pulseRing 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scrollX {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-foreground-muted;
 }
