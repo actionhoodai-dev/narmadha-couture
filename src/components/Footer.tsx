@@ -26,7 +26,7 @@ export const Footer = () => {
               </div>
             </Link>
             <h3 className="font-playfair text-xl text-footer-foreground mb-3">
-              Narmadha Fashion Home
+              Narmatha Fashion Home
             </h3>
             <p className="font-inter text-sm text-footer-foreground/60 leading-relaxed">
               Crafting elegance through exquisite designs and timeless fashion.
@@ -71,7 +71,7 @@ export const Footer = () => {
             </h4>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/narmatha_fashion_home?igsh=MTJxcTdpdzQyeXVrcw=="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-footer-foreground/20 flex items-center justify-center text-footer-foreground/60 hover:text-primary hover:border-primary transition-all duration-300"
@@ -89,7 +89,7 @@ export const Footer = () => {
                 <Facebook className="w-5 h-5" />
               </a>
               <a
-                href="https://maps.google.com"
+                href="https://maps.app.goo.gl/4zDvCmjnMyHXyLjY6?g_st=aw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-footer-foreground/20 flex items-center justify-center text-footer-foreground/60 hover:text-primary hover:border-primary transition-all duration-300"
@@ -104,7 +104,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-footer-foreground/10">
           <p className="font-inter text-xs text-center text-footer-foreground/40">
-            © {new Date().getFullYear()} Narmadha Fashion Home. All rights
+            © {new Date().getFullYear()} Narmatha Fashion Home. All rights
             reserved.
           </p>
         </div>
