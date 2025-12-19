@@ -92,7 +92,7 @@ narmigk@gmail.com                  </a>
                   <h3 className="font-playfair text-lg mb-2">Follow Us</h3>
                   <div className="flex gap-4">
                     <a
-                      href="https://instagram.com"
+                      href="https://www.instagram.com/narmatha_fashion_home?igsh=MTJxcTdpdzQyeXVrcw=="
                       target="_blank"
                       rel="noopener noreferrer"
                       className="font-inter text-sm uppercase tracking-wider text-foreground-muted hover:text-primary transition-colors"
