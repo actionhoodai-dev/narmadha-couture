@@ -10,7 +10,7 @@ interface ProductCarouselProps {
 export const ProductCarousel = ({
   images,
   title,
-  speed = 120,
+  speed = 240,
 }: ProductCarouselProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
