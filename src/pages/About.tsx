@@ -45,7 +45,7 @@ const About = () => {
               </h2>
               <div className="space-y-6 text-editorial-body">
                 <p>
-                  Narmadha Fashion Home was born from a deep reverence for
+                  Narmatha Fashion Home was born from a deep reverence for
                   India's rich textile heritage. Founded with the vision of
                   preserving traditional craftsmanship while embracing
                   contemporary design sensibilities.
@@ -161,7 +161,7 @@ const About = () => {
               and the stories we choose to tell the world.
             </p>
             <footer className="font-inter text-sm uppercase tracking-widest text-foreground-muted">
-              — Narmadha Fashion Home
+              — Narmatha Fashion Home
             </footer>
           </motion.blockquote>
         </div>
