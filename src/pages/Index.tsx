@@ -40,28 +40,28 @@ const Index = () => {
         {/* Hero Content */}
         <div className="relative container-luxury py-32">
           <div className="max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-6"
-            >
-              <div className="gold-line mb-8" />
-              <p className="font-inter text-sm uppercase tracking-[0.3em] text-foreground-muted">
-                Elegance Refined
-              </p>
-            </motion.div>
-
             <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-editorial-hero mb-8 -mt-6"
-            >
-              Narmatha
-              <br />
-              <span className="italic text-primary">Fashion Home</span>
-            </motion.h1>
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.4 }}
+  className="text-editorial-hero mb-6"
+>
+  Narmatha
+  <br />
+  <span className="italic text-primary">Fashion Home</span>
+</motion.h1>
+
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.2 }}
+  className="mb-8"
+>
+  <div className="gold-line mb-8" />
+  <p className="font-inter text-sm uppercase tracking-[0.3em] text-foreground-muted">
+    Elegance Refined
+  </p>
+</motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 40 }}
