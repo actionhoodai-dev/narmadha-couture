@@ -42,9 +42,12 @@ const Index = () => {
           <div className="max-w-2xl">
             <motion.h1
   initial={{ opacity: 0, y: 40 }}
-  animate={{ opacity: 1, y: 0 }}
+  animate={{ 
+    opacity: 1, 
+    y: typeof window !== "undefined" && window.innerWidth < 768 ? 20 : 0 
+  }}
   transition={{ duration: 0.8, delay: 0.4 }}
-  className="text-editorial-hero mb-6 translate-y-5 md:translate-y-0"
+  className="text-editorial-hero mb-6"
 >
   Narmatha
   <br />
