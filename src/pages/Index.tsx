@@ -44,7 +44,8 @@ const Index = () => {
   initial={{ opacity: 0, y: 40 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{ duration: 0.8, delay: 0.4 }}
-className="text-editorial-hero mb-6 mt-5 md:mt-0">
+  className="text-editorial-hero mb-6 translate-y-5 md:translate-y-0"
+>
   Narmatha
   <br />
   <span className="italic text-primary">Fashion Home</span>
