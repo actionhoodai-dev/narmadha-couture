@@ -31,7 +31,7 @@ const Index = () => {
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="Narmadha Fashion Home - Luxury Fashion"
+            alt="Narmatha Fashion Home - Luxury Fashion"
             className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent" />
@@ -48,7 +48,7 @@ const Index = () => {
             >
               <div className="gold-line mb-8" />
               <p className="font-inter text-sm uppercase tracking-[0.3em] text-foreground-muted">
-                Couture Fashion House
+                Elegance Refined
               </p>
             </motion.div>
 
@@ -58,9 +58,9 @@ const Index = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-editorial-hero mb-8"
             >
-              Elegance
+              Narmatha
               <br />
-              <span className="italic text-primary">Redefined</span>
+              <span className="italic text-primary">Fashion Home</span>
             </motion.h1>
 
             <motion.p
@@ -124,7 +124,7 @@ const Index = () => {
                 <span className="italic">Indian Craftsmanship</span>
               </h2>
               <p className="text-editorial-body mb-8">
-                At Narmadha Fashion Home, we celebrate the rich heritage of
+                At Narmatha Fashion Home, we celebrate the rich heritage of
                 Indian textiles. Each creation is meticulously handcrafted,
                 blending traditional techniques with contemporary aesthetics.
               </p>
