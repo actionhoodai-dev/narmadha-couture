@@ -14,7 +14,7 @@ const shuffleImages = <T,>(array: T[]) => {
 export const ProductCarousel = ({
   images,
   title,
-  speed = 120,
+  speed = 60,
 }: ProductCarouselProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [shuffledImages, setShuffledImages] = useState(images);
