@@ -7,16 +7,24 @@ interface ProductCarouselProps {
   speed?: number;
 }
 
+const shuffleImages = <T,>(array: T[]) => {
+  return [...array].sort(() => Math.random() - 0.5);
+};
+
 export const ProductCarousel = ({
   images,
   title,
-  speed = 240,
+  speed = 120,
 }: ProductCarouselProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [shuffledImages, setShuffledImages] = useState(images);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Duplicate images for seamless loop
-  const duplicatedImages = [...images, ...images];
+  useEffect(() => {
+    setShuffledImages(shuffleImages(images));
+  }, [images]);
+
+  const duplicatedImages = [...shuffledImages, ...shuffledImages];
 
   return (
     <div className="py-12 md:py-20">
