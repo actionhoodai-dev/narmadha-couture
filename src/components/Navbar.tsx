@@ -58,7 +58,7 @@ export const Navbar = () => {
             </div>
             <div className="hidden sm:block">
               <h1 className="font-playfair text-lg font-medium text-foreground leading-tight">
-                Narmadha
+                Narmatha
               </h1>
               <p className="font-inter text-xs uppercase tracking-[0.2em] text-foreground-muted">
                 Fashion Home
