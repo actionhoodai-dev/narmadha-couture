@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Instagram, Facebook, MapPin } from "lucide-react";
+import { Instagram, MapPin } from "lucide-react";
 
 const quickLinks = [
   { name: "Home", href: "/" },
@@ -56,12 +56,19 @@ export const Footer = () => {
             <h4 className="font-playfair text-lg text-footer-foreground mb-6">
               Contact
             </h4>
-            <a
-              href="mailto:info@narmadhafashionhome.com"
-              className="font-inter text-sm text-footer-foreground/60 hover:text-primary transition-colors duration-300"
-            >
-              info@narmadhafashionhome.com
-            </a>
+            <div className="space-y-3">
+              <a
+                href="mailto:narmathafashionhomes@gmail.com"
+                className="font-inter text-sm text-footer-foreground/60 hover:text-primary transition-colors duration-300 block"
+              >
+                narmathafashionhomes@gmail.com
+              </a>
+              <address className="font-inter text-sm text-footer-foreground/60 not-italic leading-relaxed">
+                Sharptronics First floor,<br />
+                Raman Nagar, Mettur,<br />
+                Tamil Nadu 636403
+              </address>
+            </div>
           </div>
 
           {/* Social & Location */}
@@ -78,15 +85,6 @@ export const Footer = () => {
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-footer-foreground/20 flex items-center justify-center text-footer-foreground/60 hover:text-primary hover:border-primary transition-all duration-300"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
               </a>
               <a
                 href="https://maps.app.goo.gl/4zDvCmjnMyHXyLjY6?g_st=aw"

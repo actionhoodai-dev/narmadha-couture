@@ -3,18 +3,23 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import heroImage from "@/assets/hero-fashion.jpg";
-import blousePurple from "@/assets/blouse-purple.jpg";
-import blouseGreen from "@/assets/blouse-green.jpg";
-import blouseGreenEmbroidered from "@/assets/blouse-green-embroidered.jpg";
-import blouseRed from "@/assets/blouse-red.jpg";
-import blouseBeige from "@/assets/blouse-beige.jpg";
+
+import blouseYellowWork from "@/assets/blouse-yellow-work.jpg";
+import blousePinkEmbroidery from "@/assets/blouse-pink-embroidery.jpg";
+import blouseCreamBeadwork from "@/assets/blouse-cream-beadwork.jpg";
+import blouseLilacWork from "@/assets/blouse-lilac-work.jpg";
+import blouseGreenCutwork from "@/assets/blouse-green-cutwork.jpg";
+import kidsPinkDress from "@/assets/kids-pink-dress.jpg";
+
+import frockPrintedBeige from "@/assets/frock-printed-beige.jpg";
+import frockBlueGown from "@/assets/frock-blue-gown.jpg";
 
 const featuredProducts = [
-  { src: blousePurple, title: "Royal Purple Elegance" },
-  { src: blouseGreen, title: "Emerald Dreams" },
-  { src: blouseGreenEmbroidered, title: "Heritage Green" },
-  { src: blouseRed, title: "Crimson Glory" },
-  { src: blouseBeige, title: "Golden Beige" },
+  { src: blouseYellowWork, title: "Yellow Cutwork Masterpiece" },
+  { src: blousePinkEmbroidery, title: "Pink Royal Zardosi" },
+  { src: blouseCreamBeadwork, title: "Cream Beadwork Classic" },
+  { src: blouseLilacWork, title: "Lilac Dreams" },
+  { src: blouseGreenCutwork, title: "Green Pattern Design" },
 ];
 
 const Index = () => {
@@ -144,7 +149,7 @@ const Index = () => {
             >
               <div className="aspect-[4/5] rounded-lg overflow-hidden">
                 <img
-                  src={blouseRed}
+                  src={frockPrintedBeige}
                   alt="Handcrafted fashion"
                   className="w-full h-full object-cover"
                 />
@@ -182,12 +187,11 @@ const Index = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "Blouses", image: blousePurple, href: "/fabrics/blouses" },
-              { name: "Gowns", image: blouseGreen, href: "/fabrics/gowns" },
-              { name: "Frocks", image: blouseRed, href: "/fabrics/frocks" },
+              { name: "Blouses", image: blouseLilacWork, href: "/fabrics/blouses" },
+              { name: "Frocks", image: frockBlueGown, href: "/fabrics/frocks" },
               {
                 name: "Kids Fashion",
-                image: blouseBeige,
+                image: kidsPinkDress,
                 href: "/kids-fashion",
               },
             ].map((category, index) => (

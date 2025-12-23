@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import blouseGreenEmbroidered from "@/assets/blouse-green-embroidered.jpg";
-import blouseRed from "@/assets/blouse-red.jpg";
-import blouseBeige from "@/assets/blouse-beige.jpg";
-import blousePurple from "@/assets/blouse-purple.jpg";
+import giftBanglesRed from "@/assets/gift-bangles-red.jpg";
+import giftBanglesGold from "@/assets/gift-bangles-gold.jpg";
+import giftBanglesPink from "@/assets/gift-bangles-pink.jpg";
+import giftBanglesOrange from "@/assets/gift-bangles-orange.jpg";
 
 const giftProducts = [
-  { src: blouseGreenEmbroidered, title: "Personalized Gift Set" },
-  { src: blouseRed, title: "Special Occasion Gift" },
-  { src: blouseBeige, title: "Luxury Gift Box" },
-  { src: blousePurple, title: "Custom Embroidered Gift" },
+  { src: giftBanglesRed, title: "Royal Coin Aari Bangles" },
+  { src: giftBanglesGold, title: "Golden Mirror Work Bangles" },
+  { src: giftBanglesPink, title: "Floral Pink Silk Bangles" },
+  { src: giftBanglesOrange, title: "Bridal Silk Thread Set" },
 ];
 
 const CustomizedGifts = () => {

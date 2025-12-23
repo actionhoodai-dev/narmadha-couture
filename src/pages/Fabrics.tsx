@@ -1,18 +1,20 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import blousePurple from "@/assets/blouse-purple.jpg";
-import blouseGreen from "@/assets/blouse-green.jpg";
-import blouseGreenEmbroidered from "@/assets/blouse-green-embroidered.jpg";
-import blouseRed from "@/assets/blouse-red.jpg";
-import blouseBeige from "@/assets/blouse-beige.jpg";
+
+import blouseYellowWork from "@/assets/blouse-yellow-work.jpg";
+import blousePinkEmbroidery from "@/assets/blouse-pink-embroidery.jpg";
+import blouseCreamBeadwork from "@/assets/blouse-cream-beadwork.jpg";
+import blouseLilacWork from "@/assets/blouse-lilac-work.jpg";
+import blouseGreenCutwork from "@/assets/blouse-green-cutwork.jpg";
+import frockBlueGown from "@/assets/frock-blue-gown.jpg";
 
 const fabricProducts = [
-  { src: blousePurple, title: "Purple Silk" },
-  { src: blouseGreen, title: "Green Satin" },
-  { src: blouseGreenEmbroidered, title: "Embroidered Silk" },
-  { src: blouseRed, title: "Red Brocade" },
-  { src: blouseBeige, title: "Beige Cotton" },
+  { src: blouseYellowWork, title: "Yellow Silk Work" },
+  { src: blousePinkEmbroidery, title: "Pink Zardosi Fabric" },
+  { src: blouseCreamBeadwork, title: "Cream Beadwork" },
+  { src: blouseLilacWork, title: "Lilac Silk" },
+  { src: blouseGreenCutwork, title: "Green Pattern Silk" },
 ];
 
 const Fabrics = () => {
@@ -64,13 +66,11 @@ const Fabrics = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { name: "Frocks", href: "/fabrics/frocks", image: blouseRed },
-              { name: "Gowns", href: "/fabrics/gowns", image: blouseGreen },
-              { name: "Tops", href: "/fabrics/tops", image: blouseBeige },
+              { name: "Frocks", href: "/fabrics/frocks", image: frockBlueGown },
               {
                 name: "Blouses",
                 href: "/fabrics/blouses",
-                image: blousePurple,
+                image: blouseLilacWork,
               },
             ].map((category, index) => (
               <motion.a

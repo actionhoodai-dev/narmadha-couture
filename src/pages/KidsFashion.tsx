@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import blouseBeige from "@/assets/blouse-beige.jpg";
-import blousePurple from "@/assets/blouse-purple.jpg";
-import blouseGreen from "@/assets/blouse-green.jpg";
-import blouseRed from "@/assets/blouse-red.jpg";
+import kidsFloralBlue from "@/assets/kids-floral-blue.jpg";
+import kidsPinkDress from "@/assets/kids-pink-dress.jpg";
+import kidsRedSkirtSet from "@/assets/kids-red-skirt-set.jpg";
+import kidsVelvetSet from "@/assets/kids-velvet-set.jpg";
 
 const kidsProducts = [
-  { src: blouseBeige, title: "Little Princess Dress" },
-  { src: blousePurple, title: "Festive Kids Wear" },
-  { src: blouseGreen, title: "Party Frock" },
-  { src: blouseRed, title: "Traditional Kids Outfit" },
+  { src: kidsFloralBlue, title: "Floral Twin Set" },
+  { src: kidsPinkDress, title: "Pink Princess Dress" },
+  { src: kidsRedSkirtSet, title: "Traditional Skirt Set" },
+  { src: kidsVelvetSet, title: "Velvet & Gold Ensemble" },
 ];
 
 const KidsFashion = () => {
@@ -83,14 +83,14 @@ const KidsFashion = () => {
             >
               <div className="aspect-square rounded-lg overflow-hidden">
                 <img
-                  src={blouseBeige}
+                  src={kidsPinkDress}
                   alt="Kids fashion"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-square rounded-lg overflow-hidden mt-8">
                 <img
-                  src={blousePurple}
+                  src={kidsVelvetSet}
                   alt="Kids fashion"
                   className="w-full h-full object-cover"
                 />

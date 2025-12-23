@@ -12,8 +12,6 @@ const navLinks = [
     href: "/fabrics",
     submenu: [
       { name: "Frocks", href: "/fabrics/frocks" },
-      { name: "Gowns", href: "/fabrics/gowns" },
-      { name: "Tops", href: "/fabrics/tops" },
       { name: "Blouses", href: "/fabrics/blouses" },
     ],
   },
@@ -47,9 +45,8 @@ export const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className={`navbar-transparent py-4 ${
-          isScrolled ? "navbar-scrolled" : "bg-transparent"
-        }`}
+        className={`navbar-transparent py-4 ${isScrolled ? "navbar-scrolled" : "bg-transparent"
+          }`}
       >
         <div className="container-luxury flex items-center justify-between">
           {/* Logo */}
@@ -80,11 +77,10 @@ export const Navbar = () => {
               >
                 <Link
                   to={link.href}
-                  className={`nav-link flex items-center gap-1 ${
-                    location.pathname === link.href
+                  className={`nav-link flex items-center gap-1 ${location.pathname === link.href
                       ? "text-primary"
                       : "text-foreground"
-                  }`}
+                    }`}
                 >
                   {link.name}
                   {link.submenu && <ChevronDown className="w-3 h-3" />}

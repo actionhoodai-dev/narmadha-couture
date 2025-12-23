@@ -1,38 +1,29 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import blousePurple from "@/assets/blouse-purple.jpg";
-import blouseGreen from "@/assets/blouse-green.jpg";
-import blouseGreenEmbroidered from "@/assets/blouse-green-embroidered.jpg";
-import blouseRed from "@/assets/blouse-red.jpg";
-import blouseBeige from "@/assets/blouse-beige.jpg";
+import blouseYellowWork from "@/assets/blouse-yellow-work.jpg";
+import blousePinkEmbroidery from "@/assets/blouse-pink-embroidery.jpg";
+import blouseCreamBeadwork from "@/assets/blouse-cream-beadwork.jpg";
+import blouseLilacWork from "@/assets/blouse-lilac-work.jpg";
+import blouseGreenCutwork from "@/assets/blouse-green-cutwork.jpg";
+
+import frockPrintedBeige from "@/assets/frock-printed-beige.jpg";
+import frockPinkLace from "@/assets/frock-pink-lace.jpg";
+import frockBlueGown from "@/assets/frock-blue-gown.jpg";
 
 // Product data organized by category
 const categories = {
   blouses: [
-    { src: blousePurple, title: "Royal Purple Blouse" },
-    { src: blouseGreen, title: "Emerald Silk Blouse" },
-    { src: blouseRed, title: "Crimson Bridal Blouse" },
-    { src: blouseBeige, title: "Golden Beige Blouse" },
-    { src: blouseGreenEmbroidered, title: "Traditional Green" },
-  ],
-  gowns: [
-    { src: blouseRed, title: "Crimson Evening Gown" },
-    { src: blousePurple, title: "Lavender Dream" },
-    { src: blouseBeige, title: "Champagne Elegance" },
-    { src: blouseGreen, title: "Forest Green Gown" },
+    { src: blouseYellowWork, title: "Yellow Cutwork Blouse" },
+    { src: blousePinkEmbroidery, title: "Pink Zardosi Blouse" },
+    { src: blouseCreamBeadwork, title: "Cream Beadwork Blouse" },
+    { src: blouseLilacWork, title: "Lilac Designer Blouse" },
+    { src: blouseGreenCutwork, title: "Green Pattern Blouse" },
   ],
   frocks: [
-    { src: blouseBeige, title: "Summer Frock" },
-    { src: blousePurple, title: "Festive Frock" },
-    { src: blouseGreen, title: "Party Frock" },
-    { src: blouseRed, title: "Traditional Frock" },
-  ],
-  tops: [
-    { src: blouseGreen, title: "Designer Top" },
-    { src: blouseBeige, title: "Casual Elegance" },
-    { src: blousePurple, title: "Evening Top" },
-    { src: blouseRed, title: "Festive Top" },
+    { src: frockPrintedBeige, title: "Printed Beige Frock" },
+    { src: frockPinkLace, title: "Pink Lace Frock" },
+    { src: frockBlueGown, title: "Blue Party Gown" },
   ],
 };
 
@@ -68,14 +59,6 @@ const Products = () => {
         />
       </section>
 
-      {/* Gowns Carousel */}
-      <section className="bg-background">
-        <ProductCarousel
-          images={categories.gowns}
-          title="Elegant Gowns"
-          speed={40}
-        />
-      </section>
 
       {/* Frocks Carousel */}
       <section className="bg-background-champagne">
@@ -83,15 +66,6 @@ const Products = () => {
           images={categories.frocks}
           title="Beautiful Frocks"
           speed={38}
-        />
-      </section>
-
-      {/* Tops Carousel */}
-      <section className="bg-background">
-        <ProductCarousel
-          images={categories.tops}
-          title="Designer Tops"
-          speed={42}
         />
       </section>
 

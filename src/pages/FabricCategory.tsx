@@ -2,11 +2,15 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import blousePurple from "@/assets/blouse-purple.jpg";
-import blouseGreen from "@/assets/blouse-green.jpg";
-import blouseGreenEmbroidered from "@/assets/blouse-green-embroidered.jpg";
-import blouseRed from "@/assets/blouse-red.jpg";
-import blouseBeige from "@/assets/blouse-beige.jpg";
+import frockPrintedBeige from "@/assets/frock-printed-beige.jpg";
+import frockPinkLace from "@/assets/frock-pink-lace.jpg";
+import frockBlueGown from "@/assets/frock-blue-gown.jpg";
+
+import blouseYellowWork from "@/assets/blouse-yellow-work.jpg";
+import blousePinkEmbroidery from "@/assets/blouse-pink-embroidery.jpg";
+import blouseCreamBeadwork from "@/assets/blouse-cream-beadwork.jpg";
+import blouseLilacWork from "@/assets/blouse-lilac-work.jpg";
+import blouseGreenCutwork from "@/assets/blouse-green-cutwork.jpg";
 
 const categoryData: Record<
   string,
@@ -23,34 +27,9 @@ const categoryData: Record<
     description:
       "Our frock collection features exquisite designs ranging from traditional to contemporary styles. Each piece is crafted with attention to detail, ensuring comfort and elegance.",
     products: [
-      { src: blouseRed, title: "Traditional Red Frock" },
-      { src: blouseBeige, title: "Golden Beige Frock" },
-      { src: blousePurple, title: "Purple Party Frock" },
-      { src: blouseGreen, title: "Emerald Festive Frock" },
-    ],
-  },
-  gowns: {
-    title: "Stunning Gowns",
-    subtitle: "Glamour for special moments",
-    description:
-      "Our gown collection embodies sophistication and grace. From flowing silhouettes to structured designs, find your perfect statement piece for weddings, galas, and celebrations.",
-    products: [
-      { src: blouseGreen, title: "Emerald Evening Gown" },
-      { src: blousePurple, title: "Royal Purple Gown" },
-      { src: blouseRed, title: "Crimson Ball Gown" },
-      { src: blouseBeige, title: "Champagne Gown" },
-    ],
-  },
-  tops: {
-    title: "Designer Tops",
-    subtitle: "Versatile elegance for everyday",
-    description:
-      "Our tops collection blends traditional craftsmanship with modern aesthetics. Perfect for pairing with sarees, lehengas, or contemporary ensembles.",
-    products: [
-      { src: blouseBeige, title: "Beige Designer Top" },
-      { src: blouseGreenEmbroidered, title: "Embroidered Top" },
-      { src: blousePurple, title: "Purple Silk Top" },
-      { src: blouseRed, title: "Festive Red Top" },
+      { src: frockPrintedBeige, title: "Printed Beige Frock" },
+      { src: frockPinkLace, title: "Pink Lace Frock" },
+      { src: frockBlueGown, title: "Blue Party Gown" },
     ],
   },
   blouses: {
@@ -59,11 +38,11 @@ const categoryData: Record<
     description:
       "Our blouse collection showcases the finest Indian craftsmanship. Featuring intricate embroidery, zardozi work, and traditional motifs, each piece is a work of art.",
     products: [
-      { src: blousePurple, title: "Purple Zardozi Blouse" },
-      { src: blouseGreen, title: "Green Silk Blouse" },
-      { src: blouseGreenEmbroidered, title: "Heritage Embroidered Blouse" },
-      { src: blouseRed, title: "Bridal Red Blouse" },
-      { src: blouseBeige, title: "Golden Beige Blouse" },
+      { src: blouseYellowWork, title: "Yellow Cutwork Blouse" },
+      { src: blousePinkEmbroidery, title: "Pink Zardosi Blouse" },
+      { src: blouseCreamBeadwork, title: "Cream Beadwork Blouse" },
+      { src: blouseLilacWork, title: "Lilac Designer Blouse" },
+      { src: blouseGreenCutwork, title: "Green Pattern Blouse" },
     ],
   },
 };

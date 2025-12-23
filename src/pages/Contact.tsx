@@ -20,43 +20,43 @@ const Contact = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (!res.ok) {
-      throw new Error("Failed to send");
+      if (!res.ok) {
+        throw new Error("Failed to send");
+      }
+
+      toast({
+        title: "Message Sent",
+        description: "Thank you for reaching out. We'll get back to you soon!",
+      });
+
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    toast({
-      title: "Message Sent",
-      description: "Thank you for reaching out. We'll get back to you soon!",
-    });
-
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      message: "",
-    });
-  } catch (error) {
-    toast({
-      title: "Something went wrong",
-      description: "Please try again later.",
-      variant: "destructive",
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   return (
     <Layout>
@@ -106,10 +106,10 @@ const Contact = () => {
                 <div>
                   <h3 className="font-playfair text-lg mb-2">Email</h3>
                   <a
-                    href="mailto:narmigk@gmail.com"
+                    href="mailto:narmathafashionhomes@gmail.com"
                     className="font-inter text-foreground-muted hover:text-primary transition-colors"
                   >
-narmigk@gmail.com                  </a>
+                    narmathafashionhomes@gmail.com                  </a>
                 </div>
                 <div>
                   <h3 className="font-playfair text-lg mb-2">Follow Us</h3>
@@ -121,15 +121,6 @@ narmigk@gmail.com                  </a>
                       className="font-inter text-sm uppercase tracking-wider text-foreground-muted hover:text-primary transition-colors"
                     >
                       Instagram
-                    </a>
-                    <span className="text-foreground-muted">•</span>
-                    <a
-                      href="https://facebook.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-inter text-sm uppercase tracking-wider text-foreground-muted hover:text-primary transition-colors"
-                    >
-                      Facebook
                     </a>
                   </div>
                 </div>
