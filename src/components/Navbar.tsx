@@ -17,6 +17,7 @@ const navLinks = [
   },
   { name: "Kids Fashion", href: "/kids-fashion" },
   { name: "Customized Gifts", href: "/customized-gifts" },
+  { name: "Order Custom", href: "/order" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -78,8 +79,8 @@ export const Navbar = () => {
                 <Link
                   to={link.href}
                   className={`nav-link flex items-center gap-1 ${location.pathname === link.href
-                      ? "text-primary"
-                      : "text-foreground"
+                    ? "text-primary"
+                    : "text-foreground"
                     }`}
                 >
                   {link.name}

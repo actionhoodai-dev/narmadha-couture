@@ -41,30 +41,30 @@ const Index = () => {
         <div className="relative container-luxury py-32">
           <div className="max-w-2xl">
             <motion.h1
-  initial={{ opacity: 0, y: 40 }}
-  animate={{ 
-    opacity: 1, 
-    y: typeof window !== "undefined" && window.innerWidth < 768 ? 20 : 0 
-  }}
-  transition={{ duration: 0.8, delay: 0.4 }}
-  className="text-editorial-hero mb-6"
->
-  Narmatha
-  <br />
-  <span className="italic text-primary">Fashion Home</span>
-</motion.h1>
+              initial={{ opacity: 0, y: 40 }}
+              animate={{
+                opacity: 1,
+                y: typeof window !== "undefined" && window.innerWidth < 768 ? 20 : 0
+              }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-editorial-hero mb-6"
+            >
+              Narmatha
+              <br />
+              <span className="italic text-primary">Fashion Home</span>
+            </motion.h1>
 
-<motion.div
-  initial={{ opacity: 0, y: 40 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, delay: 0.2 }}
-  className="mb-8"
->
-  <div className="gold-line mb-8" />
-  <p className="font-inter text-sm uppercase tracking-[0.3em] text-foreground-muted">
-    Elegance Refined
-  </p>
-</motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="mb-8"
+            >
+              <div className="gold-line mb-8" />
+              <p className="font-inter text-sm uppercase tracking-[0.3em] text-foreground-muted">
+                Elegance Refined
+              </p>
+            </motion.div>
 
             <motion.p
               initial={{ opacity: 0, y: 40 }}
@@ -85,8 +85,8 @@ const Index = () => {
               <Link to="/products" className="btn-luxury-primary">
                 Explore Collection
               </Link>
-              <Link to="/about" className="btn-luxury-outline">
-                Our Story
+              <Link to="/order" className="btn-luxury-outline">
+                Order Custom
               </Link>
             </motion.div>
           </div>
@@ -245,10 +245,10 @@ const Index = () => {
               tailored to your vision.
             </p>
             <Link
-              to="/contact"
+              to="/order"
               className="inline-flex items-center justify-center px-10 py-4 bg-primary text-primary-foreground font-inter text-sm uppercase tracking-[0.2em] transition-all duration-500 hover:bg-gold-light"
             >
-              Get in Touch
+              Order Now
             </Link>
           </motion.div>
         </div>

@@ -162,7 +162,7 @@ const Order = () => {
                     >
                         <div className="gold-line mb-8" />
                         <h1 className="text-editorial-hero mb-6">
-                            Place Your <span className="italic">Order</span>
+                            Custom <span className="italic">Order</span>
                         </h1>
                         <p className="text-editorial-subtitle">
                             Share your measurements and we'll craft the perfect fit
