@@ -1,14 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { MeasurementModal } from "@/components/MeasurementModal";
 import { useToast } from "@/hooks/use-toast";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
 import { Info } from "lucide-react";
+
+interface MeasurementField {
+    name: string;
+    unit: string;
+}
+
+interface GarmentTemplate {
+    id: string;
+    name: string;
+    measurementFields: MeasurementField[];
+    measurementGuideImage?: string;
+}
 
 const CustomOrder = () => {
     const { toast } = useToast();
     const [showMeasurementGuide, setShowMeasurementGuide] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [garmentTemplates, setGarmentTemplates] = useState<GarmentTemplate[]>([]);
+    const [selectedGarmentId, setSelectedGarmentId] = useState("");
+    const [selectedTemplate, setSelectedTemplate] = useState<GarmentTemplate | null>(null);
 
     const [formData, setFormData] = useState({
         // Customer Information
@@ -17,34 +35,91 @@ const CustomOrder = () => {
         email: "",
         address: "",
 
-        // Garment Type
-        garmentType: "blouse",
+        // Garment Details
+        garmentTemplateId: "",
         fabricPreference: "",
         deliveryDate: "",
 
-        // Measurements (Blouse)
-        blouseBackLength: "",
-        fullShoulder: "",
-        shoulderStrap: "",
-        backNeckDepth: "",
-        frontNeckDepth: "",
-        shoulderToApex: "",
-        frontLength: "",
-        chest: "",
-        waist: "",
-        sleeveLength: "",
-        armRound: "",
-        sleeveRound: "",
-        armHole: "",
+        // Dynamic measurements (will be populated based on template)
+        measurements: {} as Record<string, string>,
 
         // Additional Notes
         additionalNotes: "",
     });
 
+    // Fetch garment templates on component mount
+    useEffect(() => {
+        fetchGarmentTemplates();
+    }, []);
+
+    // Update selected template when garment selection changes
+    useEffect(() => {
+        if (selectedGarmentId) {
+            const template = garmentTemplates.find(t => t.id === selectedGarmentId);
+            setSelectedTemplate(template || null);
+
+            // Initialize measurements object with empty strings
+            if (template) {
+                const initialMeasurements: Record<string, string> = {};
+                template.measurementFields.forEach(field => {
+                    initialMeasurements[field.name] = "";
+                });
+                setFormData(prev => ({
+                    ...prev,
+                    garmentTemplateId: selectedGarmentId,
+                    measurements: initialMeasurements
+                }));
+            }
+        }
+    }, [selectedGarmentId, garmentTemplates]);
+
+    const fetchGarmentTemplates = async () => {
+        try {
+            const querySnapshot = await getDocs(collection(db, 'garment_templates'));
+            const templates: GarmentTemplate[] = [];
+            querySnapshot.forEach((doc) => {
+                templates.push({ id: doc.id, ...doc.data() } as GarmentTemplate);
+            });
+            setGarmentTemplates(templates);
+
+            // Auto-select first template if available
+            if (templates.length > 0 && !selectedGarmentId) {
+                setSelectedGarmentId(templates[0].id);
+            }
+        } catch (error) {
+            console.error('Error fetching garment templates:', error);
+            toast({
+                title: 'Error',
+                description: 'Failed to load garment templates. Please refresh the page.',
+                variant: 'destructive',
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+
+        // Handle garment selection separately
+        if (name === "garmentTemplateId") {
+            setSelectedGarmentId(value);
+            return;
+        }
+
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleMeasurementChange = (fieldName: string, value: string) => {
+        setFormData(prev => ({
+            ...prev,
+            measurements: {
+                ...prev.measurements,
+                [fieldName]: value
+            }
+        }));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -52,7 +127,37 @@ const CustomOrder = () => {
         setIsSubmitting(true);
 
         try {
-            // Prepare email content
+            if (!selectedTemplate) {
+                throw new Error("No garment template selected");
+            }
+
+            // Save to Firestore
+            const orderData = {
+                customerInfo: {
+                    name: formData.name,
+                    phone: formData.phone,
+                    email: formData.email,
+                    address: formData.address,
+                },
+                garmentInfo: {
+                    templateId: formData.garmentTemplateId,
+                    templateName: selectedTemplate.name,
+                    fabricPreference: formData.fabricPreference || null,
+                    deliveryDate: formData.deliveryDate || null,
+                },
+                measurements: formData.measurements,
+                additionalNotes: formData.additionalNotes || null,
+                status: "pending",
+                createdAt: serverTimestamp(),
+            };
+
+            await addDoc(collection(db, 'orders'), orderData);
+
+            // Also send email notification
+            const measurementsList = Object.entries(formData.measurements)
+                .map(([key, value], index) => `${index + 1}. ${key}: ${value}`)
+                .join('\n');
+
             const emailBody = `
 NEW CUSTOM ORDER SUBMISSION
 
@@ -65,32 +170,20 @@ Address: ${formData.address}
 
 ORDER DETAILS:
 --------------
-Garment Type: ${formData.garmentType}
+Garment Type: ${selectedTemplate.name}
 Fabric Preference: ${formData.fabricPreference || "Not specified"}
 Preferred Delivery Date: ${formData.deliveryDate || "Not specified"}
 
-MEASUREMENTS (in inches):
-------------------------
-1. Blouse Back Length: ${formData.blouseBackLength}
-2. Full Shoulder: ${formData.fullShoulder}
-3. Shoulder Strap: ${formData.shoulderStrap}
-4. Back Neck Depth: ${formData.backNeckDepth}
-5. Front Neck Depth: ${formData.frontNeckDepth}
-6. Shoulder to Apex: ${formData.shoulderToApex}
-7. Front Length: ${formData.frontLength}
-8. Chest (around): ${formData.chest}
-9. Waist (around): ${formData.waist}
-10. Sleeve Length: ${formData.sleeveLength}
-11. Arm Round: ${formData.armRound}
-12. Sleeve Round: ${formData.sleeveRound}
-13. Arm Hole: ${formData.armHole}
+MEASUREMENTS:
+-------------
+${measurementsList}
 
 ADDITIONAL NOTES:
 -----------------
 ${formData.additionalNotes || "None"}
-      `.trim();
+            `.trim();
 
-            const res = await fetch(
+            await fetch(
                 "https://formsubmit.co/ajax/narmathafashionhomes@gmail.com",
                 {
                     method: "POST",
@@ -102,15 +195,11 @@ ${formData.additionalNotes || "None"}
                         name: formData.name,
                         email: formData.email,
                         phone: formData.phone,
-                        subject: `Custom Order - ${formData.garmentType} for ${formData.name}`,
+                        subject: `Custom Order - ${selectedTemplate.name} for ${formData.name}`,
                         message: emailBody,
                     }),
                 }
             );
-
-            if (!res.ok) {
-                throw new Error("Failed to send");
-            }
 
             toast({
                 title: "Order Submitted Successfully!",
@@ -123,25 +212,23 @@ ${formData.additionalNotes || "None"}
                 phone: "",
                 email: "",
                 address: "",
-                garmentType: "blouse",
+                garmentTemplateId: selectedGarmentId,
                 fabricPreference: "",
                 deliveryDate: "",
-                blouseBackLength: "",
-                fullShoulder: "",
-                shoulderStrap: "",
-                backNeckDepth: "",
-                frontNeckDepth: "",
-                shoulderToApex: "",
-                frontLength: "",
-                chest: "",
-                waist: "",
-                sleeveLength: "",
-                armRound: "",
-                sleeveRound: "",
-                armHole: "",
+                measurements: {},
                 additionalNotes: "",
             });
+
+            // Re-initialize measurements for current template
+            if (selectedTemplate) {
+                const initialMeasurements: Record<string, string> = {};
+                selectedTemplate.measurementFields.forEach(field => {
+                    initialMeasurements[field.name] = "";
+                });
+                setFormData(prev => ({ ...prev, measurements: initialMeasurements }));
+            }
         } catch (error) {
+            console.error('Order submission error:', error);
             toast({
                 title: "Something went wrong",
                 description: "Please try again or contact us directly.",
@@ -151,6 +238,34 @@ ${formData.additionalNotes || "None"}
             setIsSubmitting(false);
         }
     };
+
+    if (loading) {
+        return (
+            <Layout>
+                <div className="min-h-screen flex items-center justify-center">
+                    <div className="text-center">
+                        <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                        <p className="text-foreground-muted font-inter">Loading order form...</p>
+                    </div>
+                </div>
+            </Layout>
+        );
+    }
+
+    if (garmentTemplates.length === 0) {
+        return (
+            <Layout>
+                <div className="min-h-screen flex items-center justify-center">
+                    <div className="text-center max-w-md">
+                        <h2 className="text-2xl font-playfair mb-4">No Garment Templates Available</h2>
+                        <p className="text-foreground-muted font-inter">
+                            Please contact us directly to place an order.
+                        </p>
+                    </div>
+                </div>
+            </Layout>
+        );
+    }
 
     return (
         <Layout>
@@ -264,16 +379,17 @@ ${formData.additionalNotes || "None"}
                             <div className="grid md:grid-cols-2 gap-6">
                                 <div className="relative">
                                     <select
-                                        name="garmentType"
-                                        value={formData.garmentType}
+                                        name="garmentTemplateId"
+                                        value={selectedGarmentId}
                                         onChange={handleChange}
                                         required
                                         className="input-luxury peer"
                                     >
-                                        <option value="blouse">Blouse</option>
-                                        <option value="frock">Frock</option>
-                                        <option value="kids-wear">Kids Wear</option>
-                                        <option value="other">Other</option>
+                                        {garmentTemplates.map(template => (
+                                            <option key={template.id} value={template.id}>
+                                                {template.name}
+                                            </option>
+                                        ))}
                                     </select>
                                     <label className="absolute -top-2 left-0 font-inter text-xs text-primary">
                                         Garment Type *
@@ -309,76 +425,67 @@ ${formData.additionalNotes || "None"}
                             </div>
                         </motion.div>
 
-                        {/* Measurements Section */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="space-y-6"
-                        >
-                            <div className="flex items-start justify-between gap-4 flex-wrap">
-                                <div>
-                                    <h2 className="text-editorial-title mb-2">Measurements</h2>
-                                    <p className="font-inter text-sm text-foreground-muted">
-                                        Please refer to the measurement guide before filling the form
+                        {/* Dynamic Measurements Section */}
+                        {selectedTemplate && selectedTemplate.measurementFields.length > 0 && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                className="space-y-6"
+                            >
+                                <div className="flex items-start justify-between gap-4 flex-wrap">
+                                    <div>
+                                        <h2 className="text-editorial-title mb-2">Measurements</h2>
+                                        <p className="font-inter text-sm text-foreground-muted">
+                                            Please refer to the measurement guide before filling the form
+                                        </p>
+                                    </div>
+
+                                    {selectedTemplate.measurementGuideImage && (
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowMeasurementGuide(true)}
+                                            className="btn-luxury-secondary flex items-center gap-2 whitespace-nowrap"
+                                        >
+                                            <Info className="w-4 h-4" />
+                                            View Measurement Guide
+                                        </button>
+                                    )}
+                                </div>
+
+                                <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6">
+                                    <p className="font-inter text-sm text-foreground flex items-start gap-2">
+                                        <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                                        <span>
+                                            Enter all measurements in the specified units.
+                                            {selectedTemplate.measurementGuideImage && (
+                                                <> Click the "View Measurement Guide" button above to see how to take each measurement correctly.</>
+                                            )}
+                                        </span>
                                     </p>
                                 </div>
 
-                                <button
-                                    type="button"
-                                    onClick={() => setShowMeasurementGuide(true)}
-                                    className="btn-luxury-secondary flex items-center gap-2 whitespace-nowrap"
-                                >
-                                    <Info className="w-4 h-4" />
-                                    View Measurement Guide
-                                </button>
-                            </div>
-
-                            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6">
-                                <p className="font-inter text-sm text-foreground flex items-start gap-2">
-                                    <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                                    <span>
-                                        All measurements should be in <strong>inches</strong>.
-                                        Click the "View Measurement Guide" button above to see how to take each measurement correctly.
-                                    </span>
-                                </p>
-                            </div>
-
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {[
-                                    { name: "blouseBackLength", label: "1. Blouse Back Length" },
-                                    { name: "fullShoulder", label: "2. Full Shoulder" },
-                                    { name: "shoulderStrap", label: "3. Shoulder Strap" },
-                                    { name: "backNeckDepth", label: "4. Back Neck Depth" },
-                                    { name: "frontNeckDepth", label: "5. Front Neck Depth" },
-                                    { name: "shoulderToApex", label: "6. Shoulder to Apex" },
-                                    { name: "frontLength", label: "7. Front Length" },
-                                    { name: "chest", label: "8. Chest (around)" },
-                                    { name: "waist", label: "9. Waist (around)" },
-                                    { name: "sleeveLength", label: "10. Sleeve Length" },
-                                    { name: "armRound", label: "11. Arm Round" },
-                                    { name: "sleeveRound", label: "12. Sleeve Round" },
-                                    { name: "armHole", label: "13. Arm Hole" },
-                                ].map(({ name, label }) => (
-                                    <div key={name} className="relative">
-                                        <input
-                                            type="number"
-                                            step="0.25"
-                                            name={name}
-                                            value={formData[name as keyof typeof formData]}
-                                            onChange={handleChange}
-                                            required
-                                            placeholder=" "
-                                            className="input-luxury peer"
-                                        />
-                                        <label className="absolute top-4 left-0 font-inter text-sm text-foreground-muted transition-all peer-placeholder-shown:top-4 peer-focus:top-0 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
-                                            {label} (inches) *
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        </motion.div>
+                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {selectedTemplate.measurementFields.map((field, index) => (
+                                        <div key={index} className="relative">
+                                            <input
+                                                type="number"
+                                                step="0.25"
+                                                value={formData.measurements[field.name] || ""}
+                                                onChange={(e) => handleMeasurementChange(field.name, e.target.value)}
+                                                required
+                                                placeholder=" "
+                                                className="input-luxury peer"
+                                            />
+                                            <label className="absolute top-4 left-0 font-inter text-sm text-foreground-muted transition-all peer-placeholder-shown:top-4 peer-focus:top-0 peer-focus:text-xs peer-focus:text-primary peer-[:not(:placeholder-shown)]:top-0 peer-[:not(:placeholder-shown)]:text-xs">
+                                                {index + 1}. {field.name} ({field.unit}) *
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
 
                         {/* Additional Notes */}
                         <motion.div
@@ -442,10 +549,14 @@ ${formData.additionalNotes || "None"}
             </section>
 
             {/* Measurement Modal */}
-            <MeasurementModal
-                isOpen={showMeasurementGuide}
-                onClose={() => setShowMeasurementGuide(false)}
-            />
+            {selectedTemplate && (
+                <MeasurementModal
+                    isOpen={showMeasurementGuide}
+                    onClose={() => setShowMeasurementGuide(false)}
+                    imagePath={selectedTemplate.measurementGuideImage}
+                    garmentName={selectedTemplate.name}
+                />
+            )}
         </Layout>
     );
 };

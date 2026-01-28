@@ -5,9 +5,11 @@ import { X } from "lucide-react";
 interface MeasurementModalProps {
     isOpen: boolean;
     onClose: () => void;
+    imagePath?: string;
+    garmentName?: string;
 }
 
-export const MeasurementModal = ({ isOpen, onClose }: MeasurementModalProps) => {
+export const MeasurementModal = ({ isOpen, onClose, imagePath, garmentName }: MeasurementModalProps) => {
     // Close on ESC key
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
@@ -90,7 +92,7 @@ export const MeasurementModal = ({ isOpen, onClose }: MeasurementModalProps) => 
                                 id="modal-title"
                                 className="font-playfair text-2xl font-semibold text-foreground"
                             >
-                                How to Take Measurements
+                                How to Take Measurements{garmentName ? ` - ${garmentName}` : ''}
                             </h2>
                             <button
                                 onClick={onClose}
@@ -105,20 +107,27 @@ export const MeasurementModal = ({ isOpen, onClose }: MeasurementModalProps) => 
                         <div className="overflow-y-auto max-h-[calc(90vh-80px)] p-6">
                             <div className="flex flex-col items-center gap-4">
                                 <p className="font-inter text-foreground-muted text-center max-w-2xl">
-                                    Please refer to this guide to ensure accurate measurements for your custom blouse.
+                                    Please refer to this guide to ensure accurate measurements for your custom {garmentName || 'garment'}.
                                     This will help us create the perfect fit for you.
                                 </p>
 
                                 <div className="w-full bg-muted/30 rounded-lg p-4 overflow-auto">
-                                    <img
-                                        src="/blouse-measurements.png"
-                                        alt="Blouse measurement instruction guide"
-                                        className="w-full h-auto object-contain max-w-full mx-auto"
-                                        style={{
-                                            touchAction: "pinch-zoom",
-                                            imageRendering: "crisp-edges"
-                                        }}
-                                    />
+                                    {imagePath ? (
+                                        <img
+                                            src={imagePath}
+                                            alt={`${garmentName || 'Garment'} measurement instruction guide`}
+                                            className="w-full h-auto object-contain max-w-full mx-auto"
+                                            style={{
+                                                touchAction: "pinch-zoom",
+                                                imageRendering: "crisp-edges"
+                                            }}
+                                        />
+                                    ) : (
+                                        <div className="text-center py-12 text-foreground-muted">
+                                            <p>No measurement guide available for this garment type.</p>
+                                            <p className="text-sm mt-2">Please contact us for assistance.</p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="text-sm font-inter text-foreground-muted text-center bg-primary/5 p-4 rounded-lg max-w-2xl">

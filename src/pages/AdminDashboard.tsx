@@ -35,6 +35,7 @@ interface GarmentTemplate {
     id: string;
     name: string;
     measurementFields: MeasurementField[];
+    measurementGuideImage?: string; // Path to image in public/measurement-guides/
     createdAt: any;
 }
 
@@ -50,6 +51,7 @@ const AdminDashboard = () => {
 
     // Form states
     const [garmentName, setGarmentName] = useState('');
+    const [measurementGuideImage, setMeasurementGuideImage] = useState('');
     const [measurementFields, setMeasurementFields] = useState<MeasurementField[]>([
         { id: crypto.randomUUID(), name: '', unit: 'cm' },
     ]);
@@ -141,6 +143,7 @@ const AdminDashboard = () => {
                 await updateDoc(doc(db, 'garment_templates', editingGarment.id), {
                     name: garmentName,
                     measurementFields: validFields.map(({ id, ...rest }) => rest),
+                    measurementGuideImage: measurementGuideImage || null,
                     updatedAt: serverTimestamp(),
                 });
                 toast({
@@ -152,6 +155,7 @@ const AdminDashboard = () => {
                 await addDoc(collection(db, 'garment_templates'), {
                     name: garmentName,
                     measurementFields: validFields.map(({ id, ...rest }) => rest),
+                    measurementGuideImage: measurementGuideImage || null,
                     createdAt: serverTimestamp(),
                 });
                 toast({
@@ -162,6 +166,7 @@ const AdminDashboard = () => {
 
             // Reset form
             setGarmentName('');
+            setMeasurementGuideImage('');
             setMeasurementFields([{ id: crypto.randomUUID(), name: '', unit: 'cm' }]);
             setShowAddForm(false);
             setEditingGarment(null);
@@ -179,6 +184,7 @@ const AdminDashboard = () => {
     const handleEdit = (garment: GarmentTemplate) => {
         setEditingGarment(garment);
         setGarmentName(garment.name);
+        setMeasurementGuideImage(garment.measurementGuideImage || '');
         setMeasurementFields(
             garment.measurementFields.map((field) => ({
                 ...field,
@@ -214,6 +220,7 @@ const AdminDashboard = () => {
         setShowAddForm(false);
         setEditingGarment(null);
         setGarmentName('');
+        setMeasurementGuideImage('');
         setMeasurementFields([{ id: crypto.randomUUID(), name: '', unit: 'cm' }]);
     };
 
@@ -350,6 +357,23 @@ const AdminDashboard = () => {
                                         placeholder="e.g., Blouse, Churidar, Kurti"
                                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent font-inter"
                                     />
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-foreground mb-2 font-inter">
+                                        Measurement Guide Image Path (Optional)
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={measurementGuideImage}
+                                        onChange={(e) => setMeasurementGuideImage(e.target.value)}
+                                        placeholder="e.g., /measurement-guides/blouse.png"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent font-inter"
+                                    />
+                                    <p className="mt-1 text-xs text-foreground-muted font-inter">
+                                        Place images in <code className="bg-gray-100 px-1 py-0.5 rounded">public/measurement-guides/</code> folder.
+                                        Enter path as: <code className="bg-gray-100 px-1 py-0.5 rounded">/measurement-guides/filename.png</code>
+                                    </p>
                                 </div>
 
                                 <div>

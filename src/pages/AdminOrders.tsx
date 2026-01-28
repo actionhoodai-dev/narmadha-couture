@@ -9,11 +9,21 @@ import { ArrowLeft, Package, Calendar, User, Mail, Phone, Ruler } from 'lucide-r
 
 interface OrderData {
     id: string;
-    customerName: string;
-    customerEmail: string;
-    customerPhone: string;
-    garmentType: string;
+    customerInfo: {
+        name: string;
+        email: string;
+        phone: string;
+        address: string;
+    };
+    garmentInfo: {
+        templateId: string;
+        templateName: string;
+        fabricPreference?: string;
+        deliveryDate?: string;
+    };
     measurements: Record<string, string>;
+    additionalNotes?: string;
+    status: string;
     createdAt: any;
 }
 
@@ -128,7 +138,7 @@ const AdminOrders = () => {
                                         </div>
                                         <div>
                                             <h3 className="font-playfair text-lg text-foreground">
-                                                {order.garmentType}
+                                                {order.garmentInfo.templateName}
                                             </h3>
                                             <div className="flex items-center gap-2 mt-1">
                                                 <Calendar className="w-4 h-4 text-foreground-muted" />
@@ -146,21 +156,21 @@ const AdminOrders = () => {
                                         <User className="w-4 h-4 text-foreground-muted" />
                                         <div>
                                             <p className="text-xs text-foreground-muted font-inter">Customer</p>
-                                            <p className="text-sm font-medium font-inter">{order.customerName}</p>
+                                            <p className="text-sm font-medium font-inter">{order.customerInfo.name}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Mail className="w-4 h-4 text-foreground-muted" />
                                         <div>
                                             <p className="text-xs text-foreground-muted font-inter">Email</p>
-                                            <p className="text-sm font-medium font-inter">{order.customerEmail || 'N/A'}</p>
+                                            <p className="text-sm font-medium font-inter">{order.customerInfo.email || 'N/A'}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Phone className="w-4 h-4 text-foreground-muted" />
                                         <div>
                                             <p className="text-xs text-foreground-muted font-inter">Phone</p>
-                                            <p className="text-sm font-medium font-inter">{order.customerPhone}</p>
+                                            <p className="text-sm font-medium font-inter">{order.customerInfo.phone}</p>
                                         </div>
                                     </div>
                                 </div>
