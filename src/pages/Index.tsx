@@ -31,7 +31,7 @@ const Index = () => {
         <div className="absolute inset-0">
           <img
             src={heroImage}
-            alt="Narmadha Fashion Home - Luxury Fashion"
+            alt="Narmatha Fashion Home - Luxury Fashion"
             className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-transparent" />
@@ -40,28 +40,31 @@ const Index = () => {
         {/* Hero Content */}
         <div className="relative container-luxury py-32">
           <div className="max-w-2xl">
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{
+                opacity: 1,
+                y: typeof window !== "undefined" && window.innerWidth < 768 ? 20 : 0
+              }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-editorial-hero mb-6"
+            >
+              Narmatha
+              <br />
+              <span className="italic text-primary">Fashion Home</span>
+            </motion.h1>
+
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-6"
+              className="mb-8"
             >
               <div className="gold-line mb-8" />
               <p className="font-inter text-sm uppercase tracking-[0.3em] text-foreground-muted">
-                Couture Fashion House
+                Elegance Refined
               </p>
             </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-editorial-hero mb-8"
-            >
-              Elegance
-              <br />
-              <span className="italic text-primary">Redefined</span>
-            </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 40 }}
@@ -127,7 +130,7 @@ const Index = () => {
                 <span className="italic">Indian Craftsmanship</span>
               </h2>
               <p className="text-editorial-body mb-8">
-                At Narmadha Fashion Home, we celebrate the rich heritage of
+                At Narmatha Fashion Home, we celebrate the rich heritage of
                 Indian textiles. Each creation is meticulously handcrafted,
                 blending traditional techniques with contemporary aesthetics.
               </p>
@@ -249,11 +252,11 @@ const Index = () => {
               className="inline-flex items-center justify-center px-10 py-4 bg-primary text-primary-foreground font-inter text-sm uppercase tracking-[0.2em] transition-all duration-500 hover:bg-gold-light"
             >
               Place Custom Order
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-    </Layout>
+            </Link >
+          </motion.div >
+        </div >
+      </section >
+    </Layout >
   );
 };
 

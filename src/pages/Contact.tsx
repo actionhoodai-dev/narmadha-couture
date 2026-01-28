@@ -24,21 +24,17 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(
-        "https://formsubmit.co/ajax/narmathafashionhomes@gmail.com",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      // Save to Firestore instead of sending email
+      const { addDoc, collection, serverTimestamp } = await import('firebase/firestore');
+      const { db } = await import('@/lib/firebase');
 
-      if (!res.ok) {
-        throw new Error("Failed to send");
-      }
+      await addDoc(collection(db, 'inquiries'), {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        createdAt: serverTimestamp(),
+      });
 
       toast({
         title: "Message Sent",
@@ -52,6 +48,7 @@ const Contact = () => {
         message: "",
       });
     } catch (error) {
+      console.error('Error submitting inquiry:', error);
       toast({
         title: "Something went wrong",
         description: "Please try again later.",
