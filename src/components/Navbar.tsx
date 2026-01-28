@@ -5,6 +5,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 
 const navLinks = [
   { name: "Home", href: "/" },
+  { name: "Order Custom", href: "/order" },
   { name: "About", href: "/about" },
   { name: "Products", href: "/products" },
   {
@@ -78,8 +79,8 @@ export const Navbar = () => {
                 <Link
                   to={link.href}
                   className={`nav-link flex items-center gap-1 ${location.pathname === link.href
-                      ? "text-primary"
-                      : "text-foreground"
+                    ? "text-primary"
+                    : "text-foreground"
                     }`}
                 >
                   {link.name}

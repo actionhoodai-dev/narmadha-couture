@@ -11,6 +11,7 @@ import FabricCategory from "./pages/FabricCategory";
 import KidsFashion from "./pages/KidsFashion";
 import CustomizedGifts from "./pages/CustomizedGifts";
 import Contact from "./pages/Contact";
+import CustomOrder from "./pages/CustomOrder";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/kids-fashion" element={<KidsFashion />} />
           <Route path="/customized-gifts" element={<CustomizedGifts />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/order" element={<CustomOrder />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

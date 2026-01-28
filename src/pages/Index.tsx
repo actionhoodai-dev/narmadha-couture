@@ -79,10 +79,13 @@ const Index = () => {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="flex flex-wrap gap-4"
             >
-              <Link to="/products" className="btn-luxury-primary">
+              <Link to="/order" className="btn-luxury-primary">
+                Place Order
+              </Link>
+              <Link to="/products" className="btn-luxury-outline">
                 Explore Collection
               </Link>
-              <Link to="/about" className="btn-luxury-outline">
+              <Link to="/about" className="btn-luxury-ghost">
                 Our Story
               </Link>
             </motion.div>
@@ -235,17 +238,17 @@ const Index = () => {
             className="text-center max-w-2xl mx-auto"
           >
             <h2 className="font-playfair text-4xl md:text-5xl mb-6">
-              Begin Your Style Journey
+              Ready for Your Custom Creation?
             </h2>
             <p className="font-inter text-background/70 mb-10">
-              Connect with us to create your perfect ensemble. Custom designs
-              tailored to your vision.
+              Start your custom order journey. Fill in your measurements and preferences,
+              and we'll create the perfect garment tailored just for you.
             </p>
             <Link
-              to="/contact"
+              to="/order"
               className="inline-flex items-center justify-center px-10 py-4 bg-primary text-primary-foreground font-inter text-sm uppercase tracking-[0.2em] transition-all duration-500 hover:bg-gold-light"
             >
-              Get in Touch
+              Place Custom Order
             </Link>
           </motion.div>
         </div>
