@@ -138,7 +138,7 @@ const AdminOrders = () => {
                                         </div>
                                         <div>
                                             <h3 className="font-playfair text-lg text-foreground">
-                                                {order.garmentInfo.templateName}
+                                                {order.garmentInfo?.templateName || 'Unknown Template'}
                                             </h3>
                                             <div className="flex items-center gap-2 mt-1">
                                                 <Calendar className="w-4 h-4 text-foreground-muted" />
@@ -156,21 +156,21 @@ const AdminOrders = () => {
                                         <User className="w-4 h-4 text-foreground-muted" />
                                         <div>
                                             <p className="text-xs text-foreground-muted font-inter">Customer</p>
-                                            <p className="text-sm font-medium font-inter">{order.customerInfo.name}</p>
+                                            <p className="text-sm font-medium font-inter">{order.customerInfo?.name || 'N/A'}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Mail className="w-4 h-4 text-foreground-muted" />
                                         <div>
                                             <p className="text-xs text-foreground-muted font-inter">Email</p>
-                                            <p className="text-sm font-medium font-inter">{order.customerInfo.email || 'N/A'}</p>
+                                            <p className="text-sm font-medium font-inter">{order.customerInfo?.email || 'N/A'}</p>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <Phone className="w-4 h-4 text-foreground-muted" />
                                         <div>
                                             <p className="text-xs text-foreground-muted font-inter">Phone</p>
-                                            <p className="text-sm font-medium font-inter">{order.customerInfo.phone}</p>
+                                            <p className="text-sm font-medium font-inter">{order.customerInfo?.phone || 'N/A'}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +184,7 @@ const AdminOrders = () => {
                                         </h4>
                                     </div>
                                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                                        {Object.entries(order.measurements).map(([key, value]) => (
+                                        {Object.entries(order.measurements || {}).map(([key, value]) => (
                                             <div
                                                 key={key}
                                                 className="p-3 bg-white border border-gray-200 rounded-lg"
@@ -193,7 +193,7 @@ const AdminOrders = () => {
                                                     {key}
                                                 </p>
                                                 <p className="text-sm font-medium font-inter text-foreground">
-                                                    {value}
+                                                    {String(value || '')}
                                                 </p>
                                             </div>
                                         ))}
