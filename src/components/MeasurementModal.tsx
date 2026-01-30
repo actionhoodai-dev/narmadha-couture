@@ -106,41 +106,41 @@ export const MeasurementModal = ({ isOpen, onClose, imagePath, garmentName }: Me
                         {/* Content */}
                         <div className="overflow-y-auto max-h-[calc(90vh-80px)] p-6">
                             <div className="flex flex-col items-center gap-4">
-                                This will help us create the perfect fit for you.
-                            </p>
+                                <p className="text-muted-foreground text-center">
+                                    This will help us create the perfect fit for you.
+                                </p>
 
-                            <div className="w-full bg-muted/30 rounded-lg p-4 overflow-auto">
-                                <img
-                                    src="/measurement-guides/default-guide.png"
-                                    alt={`${garmentName || 'Garment'} measurement instruction guide`}
-                                    className="w-full h-auto object-contain max-w-full mx-auto"
-                                    style={{
-                                        touchAction: "pinch-zoom",
-                                        imageRendering: "crisp-edges"
-                                    }}
-                                />
-                            </div>
+                                <div className="w-full bg-muted/30 rounded-lg p-4 overflow-auto">
+                                    <img
+                                        src="/guide.png"
+                                        alt={`${garmentName || 'Garment'} measurement instruction guide`}
+                                        className="w-full h-auto object-contain max-w-full mx-auto"
+                                        style={{
+                                            touchAction: "pinch-zoom",
+                                            imageRendering: "crisp-edges"
+                                        }}
+                                    />
+                                </div>
 
-                            <div className="text-sm font-inter text-foreground-muted text-center bg-primary/5 p-4 rounded-lg max-w-2xl">
-                                <strong className="text-foreground">💡 Pro Tip:</strong> For the most accurate measurements,
-                                we recommend having someone assist you or consulting a professional tailor.
+                                <div className="text-sm font-inter text-foreground-muted text-center bg-primary/5 p-4 rounded-lg max-w-2xl">
+                                    <strong className="text-foreground">💡 Pro Tip:</strong> For the most accurate measurements,
+                                    we recommend having someone assist you or consulting a professional tailor.
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Footer */}
-                    <div className="sticky bottom-0 z-10 px-6 py-4 bg-background border-t border-border">
-                        <button
-                            onClick={onClose}
-                            className="btn-luxury-primary w-full sm:w-auto sm:min-w-[200px] mx-auto block"
-                        >
-                            Got It
-                        </button>
-                    </div>
+                        {/* Footer */}
+                        <div className="sticky bottom-0 z-10 px-6 py-4 bg-background border-t border-border">
+                            <button
+                                onClick={onClose}
+                                className="btn-luxury-primary w-full sm:w-auto sm:min-w-[200px] mx-auto block"
+                            >
+                                Got It
+                            </button>
+                        </div>
+                    </motion.div>
                 </motion.div>
-                </motion.div>
-    )
-}
-        </AnimatePresence >
+            )}
+        </AnimatePresence>
     );
 };
