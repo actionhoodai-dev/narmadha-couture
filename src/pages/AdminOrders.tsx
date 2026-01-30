@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { db } from '@/lib/firebase';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { ArrowLeft, Package, Calendar, User, Mail, Phone, Ruler } from 'lucide-react';
+import { collection, getDocs, orderBy, query, deleteDoc, doc } from 'firebase/firestore';
+import { ArrowLeft, Package, Calendar, User, Mail, Phone, Ruler, Trash2 } from 'lucide-react';
 
 interface OrderData {
     id: string;
@@ -60,6 +60,28 @@ const AdminOrders = () => {
             });
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this order? This action cannot be undone.')) {
+            return;
+        }
+
+        try {
+            await deleteDoc(doc(db, 'orders', id));
+            toast({
+                title: 'Success',
+                description: 'Order deleted successfully',
+            });
+            fetchOrders();
+        } catch (error) {
+            console.error('Error deleting order:', error);
+            toast({
+                title: 'Error',
+                description: 'Failed to delete order',
+                variant: 'destructive',
+            });
         }
     };
 
@@ -148,6 +170,13 @@ const AdminOrders = () => {
                                             </div>
                                         </div>
                                     </div>
+                                    <button
+                                        onClick={() => handleDelete(order.id)}
+                                        className="p-2 hover:bg-red-50 text-red-600 rounded-lg transition-colors"
+                                        title="Delete Order"
+                                    >
+                                        <Trash2 className="w-5 h-5" />
+                                    </button>
                                 </div>
 
                                 {/* Customer Info */}

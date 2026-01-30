@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { db } from '@/lib/firebase';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
-import { ArrowLeft, MessageSquare, Calendar, User, Mail, Phone } from 'lucide-react';
+import { collection, getDocs, orderBy, query, deleteDoc, doc } from 'firebase/firestore';
+import { ArrowLeft, MessageSquare, Calendar, User, Mail, Phone, Trash2 } from 'lucide-react';
 
 interface InquiryData {
     id: string;
@@ -49,6 +49,28 @@ const AdminInquiries = () => {
             });
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this inquiry? This action cannot be undone.')) {
+            return;
+        }
+
+        try {
+            await deleteDoc(doc(db, 'inquiries', id));
+            toast({
+                title: 'Success',
+                description: 'Inquiry deleted successfully',
+            });
+            fetchInquiries();
+        } catch (error) {
+            console.error('Error deleting inquiry:', error);
+            toast({
+                title: 'Error',
+                description: 'Failed to delete inquiry',
+                variant: 'destructive',
+            });
         }
     };
 
@@ -126,14 +148,25 @@ const AdminInquiries = () => {
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex flex-wrap justify-between items-start gap-2">
-                                            <h3 className="font-playfair text-lg text-foreground">
-                                                {inquiry.name}
-                                            </h3>
-                                            <div className="flex items-center gap-2">
-                                                <Calendar className="w-4 h-4 text-foreground-muted" />
-                                                <span className="text-sm text-foreground-muted font-inter">
-                                                    {formatDate(inquiry.createdAt)}
-                                                </span>
+                                            <div className="flex items-center justify-between w-full">
+                                                <div>
+                                                    <h3 className="font-playfair text-lg text-foreground">
+                                                        {inquiry.name}
+                                                    </h3>
+                                                    <div className="flex items-center gap-2">
+                                                        <Calendar className="w-4 h-4 text-foreground-muted" />
+                                                        <span className="text-sm text-foreground-muted font-inter">
+                                                            {formatDate(inquiry.createdAt)}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <button
+                                                    onClick={() => handleDelete(inquiry.id)} // Fixed: wrapped in arrow function
+                                                    className="p-2 hover:bg-red-50 text-red-600 rounded-lg transition-colors"
+                                                    title="Delete Inquiry"
+                                                >
+                                                    <Trash2 className="w-5 h-5" />
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
