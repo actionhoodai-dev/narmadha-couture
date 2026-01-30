@@ -18,7 +18,7 @@ const navLinks = [
   },
   { name: "Kids Fashion", href: "/kids-fashion" },
   { name: "Customized Gifts", href: "/customized-gifts" },
-  { name: "Order Custom", href: "/order" },
+
   { name: "Contact", href: "/contact" },
 ];
 
