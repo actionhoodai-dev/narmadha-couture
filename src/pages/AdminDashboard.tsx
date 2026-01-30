@@ -23,8 +23,6 @@ import {
     MessageSquare,
     Ruler,
     X,
-    Upload,
-    Image as ImageIcon,
 } from 'lucide-react';
 
 interface MeasurementField {
@@ -37,7 +35,6 @@ interface GarmentTemplate {
     id: string;
     name: string;
     measurementFields: MeasurementField[];
-    measurementGuideImage?: string; // Path to image in public/measurement-guides/
     createdAt: any;
 }
 
@@ -53,9 +50,6 @@ const AdminDashboard = () => {
 
     // Form states
     const [garmentName, setGarmentName] = useState('');
-    const [measurementGuideImage, setMeasurementGuideImage] = useState('');
-    const [uploadedImageFile, setUploadedImageFile] = useState<File | null>(null);
-    const [imagePreviewUrl, setImagePreviewUrl] = useState<string>('');
     const [measurementFields, setMeasurementFields] = useState<MeasurementField[]>([
         { id: crypto.randomUUID(), name: '', unit: 'cm' },
     ]);
@@ -118,51 +112,7 @@ const AdminDashboard = () => {
         );
     };
 
-    // Handle image file selection
-    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
 
-        // Validate file type
-        if (!file.type.startsWith('image/')) {
-            toast({
-                title: 'Invalid File',
-                description: 'Please upload an image file (PNG, JPG, JPEG)',
-                variant: 'destructive',
-            });
-            return;
-        }
-
-        // Validate file size (max 5MB)
-        if (file.size > 5 * 1024 * 1024) {
-            toast({
-                title: 'File Too Large',
-                description: 'Please upload an image smaller than 5MB',
-                variant: 'destructive',
-            });
-            return;
-        }
-
-        setUploadedImageFile(file);
-
-        // Create preview URL
-        const previewUrl = URL.createObjectURL(file);
-        setImagePreviewUrl(previewUrl);
-    };
-
-    // Helper function to save image to public folder
-
-
-    // Remove uploaded image
-    const handleRemoveImage = () => {
-        setUploadedImageFile(null);
-        setImagePreviewUrl('');
-        setMeasurementGuideImage('');
-
-        if (imagePreviewUrl) {
-            URL.revokeObjectURL(imagePreviewUrl);
-        }
-    };
 
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -189,15 +139,11 @@ const AdminDashboard = () => {
         }
 
         try {
-            // Use the static path provided
-            const finalImagePath = measurementGuideImage.trim();
-
             if (editingGarment) {
                 // Update existing garment
                 await updateDoc(doc(db, 'garment_templates', editingGarment.id), {
                     name: garmentName,
                     measurementFields: validFields.map(({ id, ...rest }) => rest),
-                    measurementGuideImage: finalImagePath || null,
                     updatedAt: serverTimestamp(),
                 });
                 toast({
@@ -209,7 +155,6 @@ const AdminDashboard = () => {
                 await addDoc(collection(db, 'garment_templates'), {
                     name: garmentName,
                     measurementFields: validFields.map(({ id, ...rest }) => rest),
-                    measurementGuideImage: finalImagePath || null,
                     createdAt: serverTimestamp(),
                 });
                 toast({
@@ -220,9 +165,6 @@ const AdminDashboard = () => {
 
             // Reset form
             setGarmentName('');
-            setMeasurementGuideImage('');
-            setUploadedImageFile(null);
-            setImagePreviewUrl('');
             setMeasurementFields([{ id: crypto.randomUUID(), name: '', unit: 'cm' }]);
             setShowAddForm(false);
             setEditingGarment(null);
@@ -240,10 +182,6 @@ const AdminDashboard = () => {
     const handleEdit = (garment: GarmentTemplate) => {
         setEditingGarment(garment);
         setGarmentName(garment.name);
-        setMeasurementGuideImage(garment.measurementGuideImage || '');
-        setUploadedImageFile(null);
-        // Set preview to existing image if available
-        setImagePreviewUrl(garment.measurementGuideImage || '');
         setMeasurementFields(
             garment.measurementFields.map((field) => ({
                 ...field,
@@ -279,12 +217,6 @@ const AdminDashboard = () => {
         setShowAddForm(false);
         setEditingGarment(null);
         setGarmentName('');
-        setMeasurementGuideImage('');
-        setUploadedImageFile(null);
-        if (imagePreviewUrl && !imagePreviewUrl.startsWith('/measurement-guides')) {
-            URL.revokeObjectURL(imagePreviewUrl);
-        }
-        setImagePreviewUrl('');
         setMeasurementFields([{ id: crypto.randomUUID(), name: '', unit: 'cm' }]);
     };
 
@@ -423,41 +355,7 @@ const AdminDashboard = () => {
                                     />
                                 </div>
 
-                                {/* Image Path Section */}
-                                <div>
-                                    <label className="block text-sm font-medium text-foreground mb-2 font-inter">
-                                        Measurement Guide Image Path
-                                    </label>
-                                    <div className="space-y-2">
-                                        <input
-                                            type="text"
-                                            value={measurementGuideImage}
-                                            onChange={(e) => {
-                                                setMeasurementGuideImage(e.target.value);
-                                                setImagePreviewUrl(e.target.value);
-                                            }}
-                                            placeholder="e.g., /measurement-guides/blouse-guide.png"
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent font-inter"
-                                        />
-                                        <p className="text-xs text-foreground-muted font-inter">
-                                            Place the image in the <code>public/measurement-guides/</code> folder and enter the path here.
-                                        </p>
-                                    </div>
 
-                                    {imagePreviewUrl && (
-                                        <div className="mt-4 border-2 border-gray-200 rounded-lg overflow-hidden bg-gray-50 p-2">
-                                            <p className="text-xs text-foreground-muted font-inter mb-2 text-center">Preview</p>
-                                            <img
-                                                src={imagePreviewUrl}
-                                                alt="Preview"
-                                                className="w-full h-48 object-contain"
-                                                onError={(e) => {
-                                                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=Invalid+Path';
-                                                }}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
 
                                 <div>
                                     <div className="flex justify-between items-center mb-3">
