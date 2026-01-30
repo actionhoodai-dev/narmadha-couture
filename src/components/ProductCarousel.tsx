@@ -81,6 +81,11 @@ export const ProductCarousel = ({
                 />
                 <div className="img-overlay" />
               </div>
+              {image.title && (
+                <p className="mt-4 text-center font-playfair text-lg text-foreground/80 group-hover:text-primary transition-colors">
+                  {image.title}
+                </p>
+              )}
             </motion.div>
           ))}
         </motion.div>

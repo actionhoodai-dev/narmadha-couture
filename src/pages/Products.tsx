@@ -1,30 +1,12 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import blouseYellowWork from "@/assets/blouse-yellow-work.jpg";
-import blousePinkEmbroidery from "@/assets/blouse-pink-embroidery.jpg";
-import blouseCreamBeadwork from "@/assets/blouse-cream-beadwork.jpg";
-import blouseLilacWork from "@/assets/blouse-lilac-work.jpg";
-import blouseGreenCutwork from "@/assets/blouse-green-cutwork.jpg";
-
-import frockPrintedBeige from "@/assets/frock-printed-beige.jpg";
-import frockPinkLace from "@/assets/frock-pink-lace.jpg";
-import frockBlueGown from "@/assets/frock-blue-gown.jpg";
+import { products, PRODUCT_CATEGORIES } from "@/data/products";
 
 // Product data organized by category
 const categories = {
-  blouses: [
-    { src: blouseYellowWork, title: "Yellow Cutwork Blouse" },
-    { src: blousePinkEmbroidery, title: "Pink Zardosi Blouse" },
-    { src: blouseCreamBeadwork, title: "Cream Beadwork Blouse" },
-    { src: blouseLilacWork, title: "Lilac Designer Blouse" },
-    { src: blouseGreenCutwork, title: "Green Pattern Blouse" },
-  ],
-  frocks: [
-    { src: frockPrintedBeige, title: "Printed Beige Frock" },
-    { src: frockPinkLace, title: "Pink Lace Frock" },
-    { src: frockBlueGown, title: "Blue Party Gown" },
-  ],
+  blouses: products[PRODUCT_CATEGORIES.BLOUSES],
+  frocks: products[PRODUCT_CATEGORIES.FROCKS],
 };
 
 const Products = () => {

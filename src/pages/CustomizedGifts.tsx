@@ -1,17 +1,10 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import giftBanglesRed from "@/assets/gift-bangles-red.jpg";
-import giftBanglesGold from "@/assets/gift-bangles-gold.jpg";
-import giftBanglesPink from "@/assets/gift-bangles-pink.jpg";
-import giftBanglesOrange from "@/assets/gift-bangles-orange.jpg";
 
-const giftProducts = [
-  { src: giftBanglesRed, title: "Royal Coin Aari Bangles" },
-  { src: giftBanglesGold, title: "Golden Mirror Work Bangles" },
-  { src: giftBanglesPink, title: "Floral Pink Silk Bangles" },
-  { src: giftBanglesOrange, title: "Bridal Silk Thread Set" },
-];
+import { products, PRODUCT_CATEGORIES } from "@/data/products";
+
+const giftProducts = products[PRODUCT_CATEGORIES.GIFTS];
 
 const CustomizedGifts = () => {
   return (

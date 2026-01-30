@@ -3,24 +3,7 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import heroImage from "@/assets/hero-fashion.jpg";
-
-import blouseYellowWork from "@/assets/blouse-yellow-work.jpg";
-import blousePinkEmbroidery from "@/assets/blouse-pink-embroidery.jpg";
-import blouseCreamBeadwork from "@/assets/blouse-cream-beadwork.jpg";
-import blouseLilacWork from "@/assets/blouse-lilac-work.jpg";
-import blouseGreenCutwork from "@/assets/blouse-green-cutwork.jpg";
-import kidsPinkDress from "@/assets/kids-pink-dress.jpg";
-
-import frockPrintedBeige from "@/assets/frock-printed-beige.jpg";
-import frockBlueGown from "@/assets/frock-blue-gown.jpg";
-
-const featuredProducts = [
-  { src: blouseYellowWork, title: "Yellow Cutwork Masterpiece" },
-  { src: blousePinkEmbroidery, title: "Pink Royal Zardosi" },
-  { src: blouseCreamBeadwork, title: "Cream Beadwork Classic" },
-  { src: blouseLilacWork, title: "Lilac Dreams" },
-  { src: blouseGreenCutwork, title: "Green Pattern Design" },
-];
+import { products, PRODUCT_CATEGORIES, featuredProducts } from "@/data/products";
 
 const Index = () => {
   return (
@@ -155,7 +138,7 @@ const Index = () => {
             >
               <div className="aspect-[4/5] rounded-lg overflow-hidden">
                 <img
-                  src={frockPrintedBeige}
+                  src={products[PRODUCT_CATEGORIES.FROCKS][0].src}
                   alt="Handcrafted fashion"
                   className="w-full h-full object-cover"
                 />
@@ -193,11 +176,11 @@ const Index = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "Blouses", image: blouseLilacWork, href: "/fabrics/blouses" },
-              { name: "Frocks", image: frockBlueGown, href: "/fabrics/frocks" },
+              { name: "Blouses", image: products[PRODUCT_CATEGORIES.BLOUSES][3].src, href: "/fabrics/blouses" },
+              { name: "Frocks", image: products[PRODUCT_CATEGORIES.FROCKS][2].src, href: "/fabrics/frocks" },
               {
                 name: "Kids Fashion",
-                image: kidsPinkDress,
+                image: products[PRODUCT_CATEGORIES.KIDS][1].src,
                 href: "/kids-fashion",
               },
             ].map((category, index) => (

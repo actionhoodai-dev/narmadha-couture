@@ -1,17 +1,9 @@
 import { motion } from "framer-motion";
 import { Layout } from "@/components/Layout";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import kidsFloralBlue from "@/assets/kids-floral-blue.jpg";
-import kidsPinkDress from "@/assets/kids-pink-dress.jpg";
-import kidsRedSkirtSet from "@/assets/kids-red-skirt-set.jpg";
-import kidsVelvetSet from "@/assets/kids-velvet-set.jpg";
+import { products, PRODUCT_CATEGORIES } from "@/data/products";
 
-const kidsProducts = [
-  { src: kidsFloralBlue, title: "Floral Twin Set" },
-  { src: kidsPinkDress, title: "Pink Princess Dress" },
-  { src: kidsRedSkirtSet, title: "Traditional Skirt Set" },
-  { src: kidsVelvetSet, title: "Velvet & Gold Ensemble" },
-];
+const kidsProducts = products[PRODUCT_CATEGORIES.KIDS];
 
 const KidsFashion = () => {
   return (
@@ -83,14 +75,14 @@ const KidsFashion = () => {
             >
               <div className="aspect-square rounded-lg overflow-hidden">
                 <img
-                  src={kidsPinkDress}
+                  src={kidsProducts[1].src}
                   alt="Kids fashion"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-square rounded-lg overflow-hidden mt-8">
                 <img
-                  src={kidsVelvetSet}
+                  src={kidsProducts[3].src}
                   alt="Kids fashion"
                   className="w-full h-full object-cover"
                 />
