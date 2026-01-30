@@ -151,34 +151,7 @@ const AdminDashboard = () => {
     };
 
     // Helper function to save image to public folder
-    const saveImageToPublicFolder = async (file: File, garmentName: string): Promise<string> => {
-        // Generate safe filename from garment name
-        const safeFileName = garmentName
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/(^-|-$)/g, '');
 
-        const fileExtension = file.name.split('.').pop() || 'png';
-        const fileName = `${safeFileName}.${fileExtension}`;
-        const imagePath = `/measurement-guides/${fileName}`;
-
-        // Create FormData for file upload
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('fileName', fileName);
-
-        try {
-            // Convert file to base64 for storage (since we can't write directly to public folder in production)
-            // In production, this would be handled by a backend API
-            // For now, we'll save the file and return the path
-            // Note: In a real production app, you'd upload to a server or use a service
-
-            return imagePath;
-        } catch (error) {
-            console.error('Error saving image:', error);
-            throw error;
-        }
-    };
 
     // Remove uploaded image
     const handleRemoveImage = () => {
@@ -216,18 +189,8 @@ const AdminDashboard = () => {
         }
 
         try {
-            let finalImagePath = measurementGuideImage;
-
-            // If a new image file was uploaded, save it
-            if (uploadedImageFile) {
-                finalImagePath = await saveImageToPublicFolder(uploadedImageFile, garmentName);
-
-                toast({
-                    title: 'Image Upload',
-                    description: `Please manually save the uploaded image to: public${finalImagePath}`,
-                    duration: 10000,
-                });
-            }
+            // Use the static path provided
+            const finalImagePath = measurementGuideImage.trim();
 
             if (editingGarment) {
                 // Update existing garment
@@ -460,80 +423,38 @@ const AdminDashboard = () => {
                                     />
                                 </div>
 
-                                {/* Image Upload Section */}
+                                {/* Image Path Section */}
                                 <div>
-                                    <label className="block text-sm font-medium text-foreground mb-3 font-inter">
-                                        Measurement Guide Image (Optional)
+                                    <label className="block text-sm font-medium text-foreground mb-2 font-inter">
+                                        Measurement Guide Image Path
                                     </label>
+                                    <div className="space-y-2">
+                                        <input
+                                            type="text"
+                                            value={measurementGuideImage}
+                                            onChange={(e) => {
+                                                setMeasurementGuideImage(e.target.value);
+                                                setImagePreviewUrl(e.target.value);
+                                            }}
+                                            placeholder="e.g., /measurement-guides/blouse-guide.png"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent font-inter"
+                                        />
+                                        <p className="text-xs text-foreground-muted font-inter">
+                                            Place the image in the <code>public/measurement-guides/</code> folder and enter the path here.
+                                        </p>
+                                    </div>
 
-                                    {!imagePreviewUrl ? (
-                                        // Upload Button
-                                        <div className="relative">
-                                            <input
-                                                type="file"
-                                                accept="image/png,image/jpeg,image/jpg"
-                                                onChange={handleImageUpload}
-                                                className="hidden"
-                                                id="image-upload"
+                                    {imagePreviewUrl && (
+                                        <div className="mt-4 border-2 border-gray-200 rounded-lg overflow-hidden bg-gray-50 p-2">
+                                            <p className="text-xs text-foreground-muted font-inter mb-2 text-center">Preview</p>
+                                            <img
+                                                src={imagePreviewUrl}
+                                                alt="Preview"
+                                                className="w-full h-48 object-contain"
+                                                onError={(e) => {
+                                                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=Invalid+Path';
+                                                }}
                                             />
-                                            <label
-                                                htmlFor="image-upload"
-                                                className="flex items-center justify-center gap-3 w-full px-4 py-8 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary hover:bg-primary/5 transition-all cursor-pointer"
-                                            >
-                                                <Upload className="w-6 h-6 text-gray-400" />
-                                                <div className="text-center">
-                                                    <p className="text-sm font-medium text-foreground font-inter">
-                                                        Click to upload measurement guide
-                                                    </p>
-                                                    <p className="text-xs text-foreground-muted font-inter mt-1">
-                                                        PNG, JPG up to 5MB
-                                                    </p>
-                                                </div>
-                                            </label>
-                                        </div>
-                                    ) : (
-                                        // Image Preview with Actions
-                                        <div className="space-y-3">
-                                            <div className="relative group border-2 border-gray-200 rounded-lg overflow-hidden">
-                                                <img
-                                                    src={imagePreviewUrl}
-                                                    alt="Measurement guide preview"
-                                                    className="w-full h-48 object-contain bg-gray-50"
-                                                />
-                                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                                    <ImageIcon className="w-8 h-8 text-white" />
-                                                </div>
-                                            </div>
-
-                                            <div className="flex gap-2">
-                                                {/* Replace Image */}
-                                                <div className="relative flex-1">
-                                                    <input
-                                                        type="file"
-                                                        accept="image/png,image/jpeg,image/jpg"
-                                                        onChange={handleImageUpload}
-                                                        className="hidden"
-                                                        id="image-replace"
-                                                    />
-                                                    <label
-                                                        htmlFor="image-replace"
-                                                        className="flex items-center justify-center gap-2 w-full px-4 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors cursor-pointer font-inter text-sm"
-                                                    >
-                                                        <Upload className="w-4 h-4" />
-                                                        Replace Image
-                                                    </label>
-                                                </div>
-
-                                                {/* Remove Image */}
-                                                <button
-                                                    type="button"
-                                                    onClick={handleRemoveImage}
-                                                    className="flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors font-inter text-sm"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                    Remove
-                                                </button>
-                                            </div>
                                         </div>
                                     )}
                                 </div>
